@@ -1,0 +1,13 @@
+apply plugin: 'groovy'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.15"
+    compile "org.scilab.forge:jlatexmath:1.0.7"
+    compile "org.asciidoctor:asciidoctorj:1.5.8"
+
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+}

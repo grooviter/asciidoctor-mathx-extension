@@ -1,0 +1,14 @@
+= Computer Science Maths
+Mario Garcia
+:revnumber: 1
+:numbered:
+:pagenums:
+:imagesDir: images/
+:imagesoutdir: images/
+:baseDir: .
+:stem:
+:front-cover-image: image:csmaths.png[Front Cover,1050,1600]
+:doctype: anthology
+ifndef::ebook-format[:leveloffset: 1]
+
+include::_chapter_00.adoc[]

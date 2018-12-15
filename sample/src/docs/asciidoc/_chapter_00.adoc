@@ -1,0 +1,20 @@
+= Types
+
+== With title
+
+This mathematical expression has a title
+
+[mathx, width=400, height=120]
+.With title
+----
+\forall x, y \in \mathbb{N} \Rightarrow x + y >= x \cup x + y >= y
+----
+
+== With no title
+
+This is an example which has no title
+
+[mathx, width=150, height=120]
+----
+x^2 + x + \text{1}\ = \text{0}
+----
