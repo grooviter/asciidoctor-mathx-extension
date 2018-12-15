@@ -16,5 +16,5 @@ This is an example which has no title
 
 [mathx, width=150, height=120]
 ----
-x^2 + x + \text{1}\ = \text{0}
+x^2 + x + \text{1}\ = \text{3}
 ----
