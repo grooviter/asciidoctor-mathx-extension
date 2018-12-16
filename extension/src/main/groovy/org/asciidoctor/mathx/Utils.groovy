@@ -3,6 +3,7 @@ package org.asciidoctor.mathx
 import groovy.text.Template
 import groovy.text.markup.MarkupTemplateEngine
 import groovy.transform.CompileStatic
+import groovy.util.logging.Log
 import org.scilab.forge.jlatexmath.TeXConstants
 import org.scilab.forge.jlatexmath.TeXFormula
 import org.scilab.forge.jlatexmath.TeXIcon
@@ -12,12 +13,15 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
+import java.util.logging.Level
+import java.util.logging.Logger
 
 /**
  * Utility classes
  *
  * @since 0.1.0
  */
+@Log
 @CompileStatic
 class Utils {
 
@@ -41,22 +45,21 @@ class Utils {
      * as parameter
      *
      * @param latexFormula the formula we want an image from
+     * @param blockAttributes
      * @return the image with the mathematical expression
      * @since 0.1.0
      */
-    static BufferedImage createImageFromLatex(String latexFormula) {
+    static BufferedImage createImageFromLatex(String latexFormula, Map<String, Object> blockAttributes) {
         TeXFormula formula = new TeXFormula(latexFormula)
         TeXIcon icon = TeXFormula.TeXIconBuilder.newInstance(formula)
-                .setStyle(TeXConstants.STYLE_DISPLAY)
-                .setSize(60)
-                .setWidth(TeXConstants.UNIT_CM, 4, TeXConstants.ALIGN_LEFT)
-                .setInterLineSpacing(TeXConstants.UNIT_CM, 0.5f)
-                .build()
+            .setStyle(TeXConstants.STYLE_DISPLAY)
+            .setSize(blockAttributes?.width?.toString()?.toInteger() ?: Constants.DEFAULT_WIDTH)
+            .build()
 
         BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_BYTE_GRAY)
         Graphics2D g2 = image.createGraphics()
         g2.setColor(Color.white)
-        g2.fillRect(0,0, icon.getIconWidth(),icon.getIconHeight())
+        g2.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight())
         JLabel jl = new JLabel()
         jl.setForeground(new Color(0, 0, 0))
         icon.paintIcon(jl, g2, 0, 0)
@@ -77,5 +80,26 @@ class Utils {
         URL template = Utils.getResource(templateName)
 
         return engine.createTemplate(template)
+    }
+
+    /**
+     * Utility function to wrap a possible failing function to
+     * capture the possible error
+     *
+     * @param errorMessage init of the possible error message
+     * @param action possible failing function
+     * @return a value
+     * @since 0.1.2
+     */
+    static <T> T TryOrLogError(String errorMessage, Closure<T> action) {
+        T result = null
+
+        try {
+            result = action()
+        } catch(Throwable th) {
+            log.log(Level.SEVERE, "${errorMessage}: ${th.message}")
+        }
+
+        return result
     }
 }

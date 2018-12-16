@@ -6,7 +6,6 @@ import org.asciidoctor.ast.AbstractBlock
 import org.asciidoctor.ast.DocumentRuby
 import org.asciidoctor.extension.BlockProcessor as AsciidoctorBlockProcessor
 import org.asciidoctor.extension.Reader
-
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.nio.file.Paths
@@ -19,12 +18,6 @@ import java.nio.file.Paths
  */
 @CompileStatic
 class BlockProcessor extends AsciidoctorBlockProcessor {
-
-    private static final Map<String, Object> EMPTY_MAP_ST_OBJ = [:] as Map<String, Object>
-    private static final Map<Object, Object> EMPTY_MAP_OBJ_OBJ = [:] as Map<Object, Object>
-
-    private static final Template TEMPLATE = Utils.createTemplate('template.tpl')
-    private static final Template TEMPLATE_NO_TITLE = Utils.createTemplate('templateNoTitle.tpl')
 
     /**
      * Establishes the pattern under which this processor is going to be called passing the required
@@ -49,12 +42,15 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
         String relativeImagePath = getRelativeImagePath(hash, documentAttributes)
 
         if (!realImageFile.exists()) {
-            BufferedImage image = Utils.createImageFromLatex(formula)
+            BufferedImage image = Utils.TryOrLogError("Error while generating mathx image") {
+                Utils.createImageFromLatex(formula, blockAttributes)
+            }
+
             ImageIO.write(image, "png", realImageFile)
         }
 
         String content = renderBlock(relativeImagePath, blockAttributes)
-        return createBlock(parent, "pass", content, EMPTY_MAP_ST_OBJ, EMPTY_MAP_OBJ_OBJ)
+        return createBlock(parent, "pass", content, Constants.EMPTY_MAP_ST_OBJ, Constants.EMPTY_MAP_OBJ_OBJ)
     }
 
     /**
@@ -147,13 +143,16 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
             imagePath: imagePath,
             title: blockAttributes.title,
             alt: blockAttributes.alt,
-            width: blockAttributes.width,
-            height: blockAttributes.height
+            width: blockAttributes.width ?: Constants.DEFAULT_WIDTH,
+            height: blockAttributes.height ?: Constants.DEFAULT_HEIGHT
         ]
 
         StringWriter stringWriter = new StringWriter()
 
-        Template template = blockAttributes?.title ? TEMPLATE : TEMPLATE_NO_TITLE
+        Template template = blockAttributes?.title
+            ? Constants.TEMPLATE
+            : Constants.TEMPLATE_NO_TITLE
+
         template.make(bindings).writeTo(stringWriter)
 
         return stringWriter.toString()
