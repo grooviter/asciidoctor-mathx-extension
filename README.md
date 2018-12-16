@@ -1,4 +1,4 @@
-[![license](https://img.shields.io/github/license/grooviter/asciidoctor-formulax-extension.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Travis](https://img.shields.io/travis/grooviter/asciidoctor-formulax-extension.svg)](https://travis-ci.org/grooviter/asciidoctor-formulax-extension) [![Bintray](https://img.shields.io/bintray/v/grooviter/maven/asciidoctor-formulax-extension.svg)](https://bintray.com/grooviter/maven/asciidoctor-formulax-extension)
+[![license](https://img.shields.io/github/license/grooviter/asciidoctor-mathx-extension.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Travis](https://img.shields.io/travis/grooviter/asciidoctor-mathx-extension.svg)](https://travis-ci.org/grooviter/asciidoctor-mathx-extension) [![Bintray](https://img.shields.io/bintray/v/grooviter/maven/asciidoctor-mathx-extension.svg)](https://bintray.com/grooviter/maven/asciidoctor-mathx-extension)
 
 # asciidoctor-mathx-extension
 
@@ -6,7 +6,7 @@
 
 This asciidoctor extension uses LateX mathematical syntax to create
 images showing mathematical expressions. All you have to do is to
-introduce a LateX mathematical formula within a `formula` block and it
+introduce a LateX mathematical formula within a `mathx` block and it
 will be converted into an image, e.g:
 
 ```
@@ -31,5 +31,5 @@ repositories {
 Then add the dependency:
 
 ```groovy
-compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.0'
+compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.2'
 ```
