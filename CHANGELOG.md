@@ -1,6 +1,21 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - [2018-12-18]
+
+### Added
+
+- Start adding tests to extension
+
+### Fixed
+
+- Now images are compatible with any backend
+
+### Removed
+
+- Groovy templates related code, now relying on Asciidoctor's image AST
+- Unused constants
+
 ## [0.1.2] - [2018-12-16]
 
 ### Added

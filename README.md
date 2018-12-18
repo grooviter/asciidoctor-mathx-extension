@@ -13,7 +13,7 @@ will be converted into an image, e.g:
 [mathx, width=200, height=100]
 .2nd grade equations
 ----
-x^2 + x + \text{1}\ = \text{0}\
+x^2 + x + 1 = 0
 ----
 ```
 
@@ -31,5 +31,5 @@ repositories {
 Then add the dependency:
 
 ```groovy
-compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.2'
+compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.3'
 ```

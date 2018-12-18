@@ -1,7 +1,5 @@
 package org.asciidoctor.mathx
 
-import groovy.text.Template
-import groovy.text.markup.MarkupTemplateEngine
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log
 import org.scilab.forge.jlatexmath.TeXConstants
@@ -14,7 +12,6 @@ import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
 import java.util.logging.Level
-import java.util.logging.Logger
 
 /**
  * Utility classes
@@ -65,21 +62,6 @@ class Utils {
         icon.paintIcon(jl, g2, 0, 0)
 
         return image
-    }
-
-    /**
-     * Generates an instance of the template representing the image containing the mathematical
-     * expression. This template contains the image's title.
-     *
-     * @param templateName name of the template you want to create
-     * @return a {@link Template} containing the image with the mathematical expression
-     * @since 0.1.0
-     */
-    static Template createTemplate(String templateName) {
-        MarkupTemplateEngine engine = new MarkupTemplateEngine()
-        URL template = Utils.getResource(templateName)
-
-        return engine.createTemplate(template)
     }
 
     /**

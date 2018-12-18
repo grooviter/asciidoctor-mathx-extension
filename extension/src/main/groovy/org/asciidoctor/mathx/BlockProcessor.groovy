@@ -1,6 +1,5 @@
 package org.asciidoctor.mathx
 
-import groovy.text.Template
 import groovy.transform.CompileStatic
 import org.asciidoctor.ast.AbstractBlock
 import org.asciidoctor.ast.DocumentRuby
@@ -8,7 +7,6 @@ import org.asciidoctor.extension.BlockProcessor as AsciidoctorBlockProcessor
 import org.asciidoctor.extension.Reader
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
-import java.nio.file.Paths
 
 /**
  * This processor is going to transform a listing paragraph block into
@@ -30,7 +28,6 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
         super('mathx', [contexts: [':listing', ':paragraph']] as Map<String, Object>)
     }
 
-
     @Override
     Object process(AbstractBlock parent, Reader reader, Map<String, Object> blockAttributes) {
         DocumentRuby document = parent.document
@@ -39,7 +36,6 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
         String formula = reader.readLines().join('\n')
         String hash = Utils.getMD5(formula)
         File realImageFile = getRealImageFile(hash, documentAttributes)
-        String relativeImagePath = getRelativeImagePath(hash, documentAttributes)
 
         if (!realImageFile.exists()) {
             BufferedImage image = Utils.TryOrLogError("Error while generating mathx image") {
@@ -49,25 +45,15 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
             ImageIO.write(image, "png", realImageFile)
         }
 
-        String content = renderBlock(relativeImagePath, blockAttributes)
-        return createBlock(parent, "pass", content, Constants.EMPTY_MAP_ST_OBJ, Constants.EMPTY_MAP_OBJ_OBJ)
-    }
+        Map<String,Object> imageAttrs = [
+            target: realImageFile.name,
+            alt: realImageFile.name,
+            title: blockAttributes.title,
+            width: blockAttributes.width ?: Constants.DEFAULT_WIDTH,
+            height: blockAttributes.height ?: Constants.DEFAULT_HEIGHT
+        ]
 
-    /**
-     * The result of this method will be used in the image block as the 'src' value. Normally it should be
-     * a relative path
-     *
-     * @param formulaHash hash which be used as the file name
-     * @param documentAttributes {@link DocumentRuby} attributes
-     * @return the image relative path
-     */
-    private static String getRelativeImagePath(String formulaHash, Map<String, Object> documentAttributes) {
-        String filename= "${formulaHash}.png"
-        String relativePath = Paths
-                .get("${documentAttributes.imagesdir}", filename)
-                .toString()
-
-        return relativePath
+        return createBlock(parent, "image", "", imageAttrs, Constants.EMPTY_MAP_OBJ_OBJ)
     }
 
     /**
@@ -129,32 +115,5 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
         }
 
         return new File(documentDir, imagesOutputPath)
-    }
-
-    /**
-     * Renders the html of the image block
-     *
-     * @param imagePath path to be used as the src value in the rendered html
-     * @param blockAttributes attributes found in the mathx block
-     * @return the
-     */
-    private static String renderBlock(String imagePath, Map<String, Object> blockAttributes) {
-        Map<String, Object> bindings = [
-            imagePath: imagePath,
-            title: blockAttributes.title,
-            alt: blockAttributes.alt,
-            width: blockAttributes.width ?: Constants.DEFAULT_WIDTH,
-            height: blockAttributes.height ?: Constants.DEFAULT_HEIGHT
-        ]
-
-        StringWriter stringWriter = new StringWriter()
-
-        Template template = blockAttributes?.title
-            ? Constants.TEMPLATE
-            : Constants.TEMPLATE_NO_TITLE
-
-        template.make(bindings).writeTo(stringWriter)
-
-        return stringWriter.toString()
     }
 }
