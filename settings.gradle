@@ -1,4 +1,17 @@
-rootProject.name = 'asciidoctor-mathx-extension'
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'org.kordamp.gradle:settings-gradle-plugin:0.15.1'
+    }
+}
 
-include 'extension'
-include 'sample'
+apply plugin: 'org.kordamp.gradle.settings'
+
+rootProject.name = 'asciidoctor-mathx-extension-parent'
+
+projects {
+    layout = 'standard'
+}

@@ -1,15 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
-    }
+plugins {
+    id "groovy"
+    id "org.asciidoctor.convert" version "1.5.9.2"
 }
-
-apply plugin: 'groovy'
-apply plugin: 'org.asciidoctor.convert'
 
 repositories {
     jcenter()
@@ -21,7 +13,7 @@ dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-epub3:1.5.0-alpha.6'
     asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.3.1'
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-    asciidoctor project(':extension')
+    asciidoctor project(':asciidoctor-mathx-extension')
 
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
 }
