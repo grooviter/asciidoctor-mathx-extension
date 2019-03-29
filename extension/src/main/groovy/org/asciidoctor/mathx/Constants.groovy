@@ -15,13 +15,6 @@ class Constants {
     static final Integer DEFAULT_WIDTH = 500
 
     /**
-     * Default image's height
-     *
-     * @since 0.1.2
-     */
-    static final Integer DEFAULT_HEIGHT = 250
-
-    /**
      * Empty {@link Map}
      *
      * @since 0.1.2

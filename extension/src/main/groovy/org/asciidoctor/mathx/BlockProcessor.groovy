@@ -49,8 +49,8 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
             target: realImageFile.name,
             alt: realImageFile.name,
             title: blockAttributes.title,
-            width: blockAttributes.width ?: Constants.DEFAULT_WIDTH,
-            height: blockAttributes.height ?: Constants.DEFAULT_HEIGHT
+            width: blockAttributes.width,
+            height: blockAttributes.height
         ]
 
         return createBlock(parent, "image", "", imageAttrs, Constants.EMPTY_MAP_OBJ_OBJ)
