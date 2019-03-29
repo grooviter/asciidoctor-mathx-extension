@@ -1,6 +1,6 @@
 plugins {
-    id 'org.kordamp.gradle.project' version '0.15.0'
-    id 'org.kordamp.gradle.bintray' version '0.15.0'
+    id 'org.kordamp.gradle.project' version '0.15.1'
+    id 'org.kordamp.gradle.bintray' version '0.15.1'
 }
 
 config {

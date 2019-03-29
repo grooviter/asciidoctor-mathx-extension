@@ -15,8 +15,10 @@
  */
 package org.asciidoctor.mathx
 
+import groovy.text.SimpleTemplateEngine
 import groovy.transform.CompileStatic
 import groovy.util.logging.Log
+import org.imgscalr.Scalr
 import org.scilab.forge.jlatexmath.TeXConstants
 import org.scilab.forge.jlatexmath.TeXFormula
 import org.scilab.forge.jlatexmath.TeXIcon
@@ -38,6 +40,13 @@ import java.util.logging.Level
 class Utils {
 
     /**
+     * Default image's width
+     *
+     * @since 0.1.2
+     */
+    static final Integer DEFAULT_WIDTH = 500
+
+    /**
      * Generates an MD5 hash of the {@link String} passed as argument
      *
      * @param content the string we want its MD5 from
@@ -57,15 +66,14 @@ class Utils {
      * as parameter
      *
      * @param latexFormula the formula we want an image from
-     * @param blockAttributes
      * @return the image with the mathematical expression
      * @since 0.1.0
      */
-    static BufferedImage createImageFromLatex(String latexFormula, Map<String, Object> blockAttributes) {
+    static BufferedImage createImageFromLatex(String latexFormula) {
         TeXFormula formula = new TeXFormula(latexFormula)
         TeXIcon icon = TeXFormula.TeXIconBuilder.newInstance(formula)
             .setStyle(TeXConstants.STYLE_DISPLAY)
-            .setSize(blockAttributes?.width?.toString()?.toInteger() ?: Constants.DEFAULT_WIDTH)
+            .setSize(DEFAULT_WIDTH)
             .build()
 
         BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_BYTE_GRAY)
@@ -75,6 +83,26 @@ class Utils {
         JLabel jl = new JLabel()
         jl.setForeground(new Color(0, 0, 0))
         icon.paintIcon(jl, g2, 0, 0)
+
+        return image
+    }
+
+    /**
+     * Resizes a {@link BufferedImage} with the width and height passed as arguments
+     *
+     * @param image the image to resize
+     * @param width the image width (optional)
+     * @param height the image height (optional)
+     * @return a new {@link BufferedImage} with the passed width and height
+     */
+    static BufferedImage resizeImage(BufferedImage image, Integer width, Integer height) {
+        if (width && height) {
+            return Scalr.resize(image, width, height)
+        } else if (width && !height) {
+            return Scalr.resize(image, Scalr.Mode.FIT_TO_WIDTH, width)
+        } else if (height && !width) {
+            return Scalr.resize(image, Scalr.Mode.FIT_TO_HEIGHT, height)
+        }
 
         return image
     }
@@ -98,5 +126,18 @@ class Utils {
         }
 
         return result
+    }
+
+    /**
+     * Renders a template passing the argument value if the argument is not null
+     *
+     * @param value the value passed to the template
+     * @param template the template to render
+     * @return the result of rendering the template with the value passed or null if the value is not present
+     */
+    static String renderIfPresent(Object value, String template) {
+        return value
+            ? new SimpleTemplateEngine().createTemplate(template).make(it: value.toString())
+            : null
     }
 }

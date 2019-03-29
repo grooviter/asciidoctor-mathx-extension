@@ -1,6 +1,16 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - [2019-03-29]
+
+### Added
+
+- License headers to Groovy source code
+
+### Fixed
+
+- Fix keep dimensions when using only width or height
+
 ## [0.1.3] - [2018-12-18]
 
 ### Added

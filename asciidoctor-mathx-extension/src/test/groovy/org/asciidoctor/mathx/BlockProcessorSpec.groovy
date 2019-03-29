@@ -25,7 +25,7 @@ class BlockProcessorSpec extends Specification {
         new File('build').mkdirs()
     }
 
-    void 'check pdf'() {
+    void 'check html file is created'() {
         given: 'an asciidoctor document'
         def document = '''
             = My document

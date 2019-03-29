@@ -1,14 +1,13 @@
 = Computer Science Maths
 Mario Garcia
-:revnumber: 1
-:numbered:
-:pagenums:
-:imagesDir: images/
-:imagesoutdir: images/
-:baseDir: .
-:stem:
-:front-cover-image: image:csmaths.png[Front Cover,1050,1600]
-:doctype: anthology
+:doctype: book
+:producer: Asciidoctor
+:copyright: CC-BY-SA 3.0
+:front-cover-image: image:cover.jpg[Front Cover,1050,1600]
+:keywords: Asciidoctor, samples, e-book, EPUB3, KF8, MOBI, Asciidoctor.js
+:imagesdir: images
 ifndef::ebook-format[:leveloffset: 1]
 
-include::_chapter_00.adoc[]
+include::{includedir}/chapter_0.adoc[]
+
+include::{includedir}/chapter_1.adoc[]
