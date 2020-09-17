@@ -1,0 +1,52 @@
+plugins {
+    id 'org.asciidoctor.jvm.convert' version '2.1.0'
+    id 'org.asciidoctor.jvm.epub' version '2.1.0'
+    id 'org.asciidoctor.jvm.pdf' version '2.1.0'
+}
+
+repositories {
+    jcenter()
+}
+
+asciidoctorj {
+    safeMode 'unsafe'
+    fatalWarnings missingIncludes()
+    attributes pluginVersion : '2.0.0'
+
+    extensions project(':asciidoctor-mathx-extension')
+}
+
+asciidoctor {
+    sourceDir = 'src/docs/asciidoc'
+
+    outputOptions {
+        backends = ['html5', 'pdf', 'epub3']
+    }
+
+    sources {
+        include 'index.adoc'
+    }
+
+    resources {
+        from("images") {
+            include '**/*.*'
+        }
+
+        into 'images'
+    }
+
+    attributes "source-highlighter": "coderay",
+            "stylesdir": "css",
+            "stylesheet": "foundation.css",
+            "toc"      : "left"
+}
+
+config {
+    bintray {
+        enabled = false
+    }
+
+    publishing {
+        enabled = false
+    }
+}

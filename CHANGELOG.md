@@ -1,6 +1,19 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - [2020-09-18]
+
+### Added
+
+- Kordamp Gradle plugins
+- License headers to Groovy source code
+
+### Fixed
+
+- Fix keep dimensions when using only width or height
+- Fix title, alt, align, and caption attributes
+- Fixed pdf, and epub backend rendering
+
 ## [0.1.3] - [2018-12-18]
 
 ### Added

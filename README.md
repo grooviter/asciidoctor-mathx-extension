@@ -31,5 +31,5 @@ repositories {
 Then add the dependency:
 
 ```groovy
-compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.3'
+compile 'com.github.grooviter:asciidoctor-mathx-extension:0.1.4'
 ```

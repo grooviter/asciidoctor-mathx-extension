@@ -4,3 +4,4 @@ build/
 
 *.class
 *.log
+/.nb-gradle/

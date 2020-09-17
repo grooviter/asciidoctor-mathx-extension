@@ -1,0 +1,52 @@
+plugins {
+    id 'org.kordamp.gradle.project' version '0.15.1'
+    id 'org.kordamp.gradle.bintray' version '0.15.1'
+}
+
+config {
+    release = (rootProject.findProperty('release') ?: false).toBoolean()
+
+    info {
+        name        = 'asciidoctor-mathx-extension'
+        vendor      = 'Grooviter'
+        description = 'Asciidoctor Match Extension'
+
+        links {
+            website      = 'https://github.com/grooviter/asciidoctor-mathx-extension'
+            issueTracker = 'https://github.com/grooviter/asciidoctor-mathx-extension/issues'
+            scm          = 'https://github.com/grooviter/asciidoctor-mathx-extension'
+        }
+
+        people {
+            person {
+                id    = 'mariogarcia'
+                name  = 'Mario Garcia'
+                roles = ['developer']
+            }
+        }
+    }
+
+    licensing {
+        licenses {
+            license {
+                id = 'Apache-2.0'
+            }
+        }
+    }
+
+    bintray {
+        credentials {
+            username = project.properties.bintrayUser ?: System.getenv('BINTRAY_USER')
+            password = project.properties.bintrayApiKey ?: System.getenv('BINTRAY_KEY')
+        }
+        userOrg    = 'grooviter'
+        name       = "$artifactId"
+        githubRepo = 'grooviter/asciidoctor-mathx-extension'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}

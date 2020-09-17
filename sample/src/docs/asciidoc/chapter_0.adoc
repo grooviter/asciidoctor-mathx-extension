@@ -1,0 +1,54 @@
+= Mathx extension
+
+How to use this extension with different examples.
+
+== With no title
+
+Let A be the matrix then, A + O = A = O + A Therefore, **O** a matrix of the same order as the matrix A that when added up to **A** equals to **A** as well. **O** is also named the **null** or **zero** matrix. So lets prove it adding up a matrix **A** with a compatible **zero** matrix. First the two matrices:
+
+[mathx, height=80, align=center, name="null_matrix.png"]
+----
+A =
+\begin{pmatrix}
+1 & 2 & 3\\
+1 & 2 & 3 \\
+1 & 2 & 3 \\
+\end{pmatrix},
+O =
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{pmatrix}
+----
+
+== With title
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo:
+
+[mathx, height=30, name="forall.jpg"]
+.With title caption
+----
+\forall x, y \in \mathbb{N} \Rightarrow x + y >= x \cup x + y >= y
+----
+
+Another two expressions **A** and **-A** (the inverse of A):
+
+[mathx, height=80, align="center"]
+.Another formula
+----
+A=
+\begin{pmatrix}
+1 & 2 & 3\\
+1 & 2 & 3 \\
+1 & 2 & 3 \\
+\end{pmatrix},
+-A =
+\begin{pmatrix}
+- 1 & - 2 & - 3\\
+- 1 & - 2 &  - 3 \\
+- 1 &  - 2 & - 3 \\
+\end{pmatrix}
+----
+
+So far so good!
