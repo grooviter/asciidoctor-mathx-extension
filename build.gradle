@@ -36,8 +36,8 @@ config {
 
     bintray {
         credentials {
-            username = project.properties.bintrayUser
-            password = project.properties.bintrayApiKey
+            username = project.properties.bintrayUser ?: System.getenv('BINTRAY_USER')
+            password = project.properties.bintrayApiKey ?: System.getenv('BINTRAY_KEY')
         }
         userOrg    = 'grooviter'
         name       = "$artifactId"
