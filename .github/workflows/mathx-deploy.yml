@@ -19,4 +19,4 @@ jobs:
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
-        run: ./gradlew clean build :asciidoctor-mathx-extension:bintrayUpload
+        run: ./gradlew :asciidoctor-mathx-extension:bintrayUpload

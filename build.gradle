@@ -36,9 +36,10 @@ config {
 
     bintray {
         credentials {
-            username = project.properties.bintrayUser ?: System.getenv('BINTRAY_USER')
-            password = project.properties.bintrayApiKey ?: System.getenv('BINTRAY_KEY')
+            username = "${ properties.bintrayUser ?: System.getenv('BINTRAY_USER') }"
+            password = "${ properties.bintrayKey ?: System.getenv('BINTRAY_KEY') }"
         }
+        enabled    = true
         userOrg    = 'grooviter'
         name       = "$artifactId"
         githubRepo = 'grooviter/asciidoctor-mathx-extension'
