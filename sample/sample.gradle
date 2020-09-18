@@ -39,6 +39,8 @@ asciidoctor {
             "stylesdir": "css",
             "stylesheet": "foundation.css",
             "toc"      : "left"
+            // If images need to be writeen to custom location uncomment next line
+            // "imagesoutdir": "${buildDir}/img"
 }
 
 config {

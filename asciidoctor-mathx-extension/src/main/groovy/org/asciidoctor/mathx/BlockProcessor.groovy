@@ -41,6 +41,7 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
 
     static final String DOCUMENT_ATTR_IMAGES_DIR = 'imagesdir'
     static final String DOCUMENT_ATTR_GRADLE_PROJECT_DIR = 'gradle-projectdir'
+    static final String DOCUMENT_ATTR_IMG_OUT_DIR = 'imagesoutdir'
 
     static final String PROCESSOR_NAME = 'mathx'
     static final Map<String,Object> PROCESSOR_CONFIG = [contexts: [':listing', ':paragraph']] as Map<String, Object>
@@ -126,8 +127,9 @@ class BlockProcessor extends AsciidoctorBlockProcessor {
         Map<String,Object> attrs = node.document.attributes
         String projectDir = attrs[DOCUMENT_ATTR_GRADLE_PROJECT_DIR]
         String imagesDir = attrs[DOCUMENT_ATTR_IMAGES_DIR]
+        String outputDir = attrs[DOCUMENT_ATTR_IMG_OUT_DIR] ?: "$projectDir/$imagesDir"
 
-        String filePath = new File("$projectDir/$imagesDir", finalName).absolutePath
+        String filePath = new File(outputDir, finalName).absolutePath
         String file = node.normalizeWebPath(filePath, "", true)
         File fileToCreate = new File(file)
 

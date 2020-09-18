@@ -1,6 +1,12 @@
 # Change log
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - [2020-09-19]
+
+### Fixed
+
+- Use 'imagesoutdir' property value if present
+
 ## [0.1.4] - [2020-09-18]
 
 ### Added
